@@ -46,7 +46,7 @@ driver.switch_to.alert.accept() # alert 창 확인 (인증 성공, 대시보드�
 try:
     #welcome_msg = driver.find_element((By.XPATH, "//span[@id='welcome-msg']")).is_displayed()
     #print(welcome_msg)
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, "welcome-msg")))
+    WebDriverWait(driver, 10).until(EC.presEence_of_element_located((By.ID, "welcome-msg")))
     print("⭕ID: admin, PW: 1234 로그인 성공입니다.⭕")
 except:
     print("❌ID: admin, PW: 1234 로그인 실패입니다.❌")
@@ -93,7 +93,7 @@ for u_id,u_pw in user_list:
         txt_login_id = ""
         xt_login_pw = ""
     
-######## 7. 이용 약관 및 개인정보 처리방침 동작 (보류)
+######## 7. 이용 약관 및 개인정보 처리방침 동작
 driver.find_element(By.XPATH, "//a[@href='terms.html']").click()
 def scroll_down():
     url2 = "https://ej31.github.io/learn-for-selector/terms.html"
