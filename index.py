@@ -1,3 +1,9 @@
+# @ej31
+# 현재 코드에 POM을 적용해주시고 이후에 점진적으로 계층을 나누어보시기 바랍니다.
+# 꼭 필요한 과정이에요!!
+# 계층을 나눌 때 여러가지 방법이 있으나 잘알려져있고 보편적인 방법 중 하나는 "클린 아키텍쳐" 입니다. (보편적이라고 해서 쉽다는게 아닙니다. 공부해야되요!)
+# 1단계 POM 도입해서 Locator, Action 분리하기 -> 2단계 Driver wrapping 하기 or 추상화하기 -> 3단계 use case 분리하기 (비즈니스 로직 캡슐화하기!, 캡슐화는 객체지향에서 쓰는 용어입니다.) -> 4단계 설정을 외부화하기 (설정 값이나 테스트에 사용되는 외부 이미지 등의 테스트 데이터를 분리해서 관리하기)
+
 import time
 import logging
 from selenium import webdriver
@@ -46,6 +52,9 @@ driver.switch_to.alert.accept() # alert 창 확인 (인증 성공, 대시보드�
 try:
     #welcome_msg = driver.find_element((By.XPATH, "//span[@id='welcome-msg']")).is_displayed()
     #print(welcome_msg)
+
+    # @ej31
+    # 오타 있습니다. `presEence_of_element_located` => 이거 실행 되던가요?.. 안될텐데..
     WebDriverWait(driver, 10).until(EC.presEence_of_element_located((By.ID, "welcome-msg")))
     print("⭕ID: admin, PW: 1234 로그인 성공입니다.⭕")
 except:
@@ -91,6 +100,7 @@ for u_id,u_pw in user_list:
     else:
         print("❌ID/PW가 초기화 되지 않아 수동 초기화로 진행합니다.❌")
         txt_login_id = ""
+        # @ej31 이 변수는 앞에서 선언 된 적이 없습니다. 음............................ 실행 해보지 않으신거 같은데.................. 🙄
         xt_login_pw = ""
     
 ######## 7. 이용 약관 및 개인정보 처리방침 동작

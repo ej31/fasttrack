@@ -1,3 +1,21 @@
+# @ej31
+# POM 패턴 꼭 적용해보시기 바랍니다.
+# 아래와 같이 페이지 별로 묶어서 관리해주면 명확해지고 유지보수도 쉬워져서 시간을 아낄 수 있게 됩니다.
+# 시간을 아낄 수 있는 방법을 찾아야해요!
+# ✅ 로케이터 분리 예시
+class InventoryPage:
+    CATEGORY_FILTER = (By.ID, "category-filter")
+    SELECT_ALL_CHECKBOX = (By.CSS_SELECTOR, "input[id='select-all']")
+    ITEM_CHECKBOXES = (By.CSS_SELECTOR, "input[name='item-check']")
+    
+    def __init__(self, driver):
+        self.driver = driver
+    
+    def select_category(self, category_name):
+        dropdown = Select(self.driver.find_element(*self.CATEGORY_FILTER))
+        dropdown.select_by_visible_text(category_name)
+
+
 import time
 
 from selenium import webdriver
@@ -11,6 +29,10 @@ from unicodedata import category
 from webdriver_manager.chrome import ChromeDriverManager
 
 from selenium.webdriver.support.ui import Select
+
+# @ej31
+# 모든 코드가 전부 함수화 혹은 클래스화가 되어 있지 않습니다.
+# 지금 처럼 전역 스타일로 코드를 작성한다면 시간이 지나서 코드를 확장해야 할 때 전부 다 리팩토링 해야 할 수도 있습니다.
 
 # 1. 브라우저 꺼짐 방지 옵션 설정
 chrome_options = Options()
@@ -121,6 +143,9 @@ for item in itemUpdate_list:
 
     driver.find_element(By.ID, "save-btn").click()
     #print(pName, price, stock, cate)
+    # time sleep 말고 WebDriverWait 을 쓰시는게 좋습니다.
+    # 만약 특정 상태가 될 때까지 기다리기 위해서 의도적으로 3초를 쉰거라면 그 상태가 무엇인지 주석에 상세를 적어놓고 WebDriver 에 있는 기능을 최대한 활용하는게 좋습니다.
+    # 크롤링 코드가 아닌 테스트 코드에선 time.sleep 은 가급적 쓰지 않는게 좋습니다.
     time.sleep(3)
 
     try:

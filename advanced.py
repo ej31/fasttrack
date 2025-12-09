@@ -1,3 +1,6 @@
+# @ej31
+# 지금 코드는 "실행코드"의 형태이고 QA 테스팅을 위한 코드로 변환이 필요합니다.
+# @pytest 를 사용해서 실제 테스트 코드의 형태로 만들어보세요! 
 import time
 
 from selenium import webdriver
@@ -39,12 +42,20 @@ try:
     )
     print("⭕주문 목록 동기화 완료⭕")
 except:
+    # @ej31 이와 같이 예외처리 하는건 Bare except 처리 라고 합니다. 이렇게 처리하면 나중에 폭탄 맞습니다. 터져야 할 때 안터져서 에러를 못찾는 끔찍한 일이 벌어져요
     print("❌요소를 찾을 수 없거나 표시되지 않음❌")
 
 
 # 파일 업로드(성공)
 print("◽◽◽파일 업로드 성공 테스트입니다.◽◽◽")
 file_upload_ele = driver.find_element(By.ID, 'file-upload')
+# @ej31
+# 파일 경로를 하드코딩 하시면 다른 환경에서는 실행을 반드시 실패 할 수 밖에 없습니다.
+# 그리고 실행에 필요한 파일은 모든 환경에서 특정 할 수 경로에 위치 시키는게 좋습니다.
+# 아직은 리눅스를 배우지 않아서 생소하시겠지만 "/tmp/fasttrack/dummy_images/...." 처럼 임시로 폴더를 설정해서 그 곳에 위치시키거나 프로젝트 루트경로에 파일을 올려두고 쓰는게 좋습니다.
+# 그래야 환경이 바뀌어도 터지지 않는 튼튼한 코드가 완성 됩니다.
+# 정리해보자면 상대 경로 혹은 환경 변수를 사용하는게 좋다라고 볼 수 있겠습니다.
+# file_path = os.path.join(os.path.dirname(__file__), "test_files", "test.jpg")  ==> 이와 같이 프로젝트 루트 경로에서 파일 올려놓고 쓰면 터질일이 없음
 file_path =  r"C:\Users\zup70\OneDrive\Desktop\KakaoTalk_20251020_111409517.jpg"
 file_upload_ele.send_keys(file_path)
 
